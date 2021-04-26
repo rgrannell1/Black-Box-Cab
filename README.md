@@ -3,7 +3,9 @@
 
 Ireland's Taxi-Fare algorithm is complicated, so I GDPR'd my taxi-company to build a black-box model of taxi fares as a function of distance and travel duration.
 
-<img src="model.png">
+<img src="duration-vs-distance.png">
+<img src="price-vs-distance.png">
+<img src="price-vs-duration.png">
 
 ## License
 

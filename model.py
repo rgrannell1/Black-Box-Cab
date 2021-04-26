@@ -26,10 +26,25 @@ def tranform_data(bookings):
 df = tranform_data(bookings)
 
 def view_data(df):
-  plot = (p9.ggplot(df) + p9.geom_point(p9.aes(x='route_distance', y='duration', fill='tour_value')) +
-          p9.ggtitle('Price, Distance, & Duration of Taxi-Fares (n=' + str(len(df.index)) + ')') +
+  plot0 = (p9.ggplot(df) + p9.geom_point(p9.aes(x='route_distance', y='duration', fill='tour_value')) +
+           p9.geom_smooth(p9.aes(x='route_distance', y='duration'), method='loess') +
+          p9.ggtitle('Duration vs Distance of Taxi-Trips (n=' + str(len(df.index)) + ')') +
     p9.xlab('Distance (m)') +
     p9.ylab(''))
-  plot.save("model.png", dpi=1000)
+  plot0.save("duration-vs-distance.png", dpi=1000)
+
+  plot1 = (p9.ggplot(df) + p9.geom_point(p9.aes(x='duration', y='tour_value', fill='route_distance')) +
+           p9.geom_smooth(p9.aes(x='duration', y='tour_value'), method='loess') +
+          p9.ggtitle('Price vs Duration of Taxi-Fares (n=' + str(len(df.index)) + ')') +
+          p9.xlab('') +
+          p9.ylab('Price'))
+  plot1.save("price-vs-duration.png", dpi=1000)
+
+  plot2 = (p9.ggplot(df) + p9.geom_point(p9.aes(x='route_distance', y='tour_value')) +
+           p9.geom_smooth(p9.aes(x='route_distance', y='tour_value'), method='loess') +
+           p9.ggtitle('Price vs Distance of Taxi-Fares (n=' + str(len(df.index)) + ')') +
+           p9.xlab('Duration (m)') +
+           p9.ylab('Price'))
+  plot2.save("price-vs-distance.png", dpi=1000)
 
 view_data(df)
