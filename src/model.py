@@ -22,7 +22,13 @@ def tranform_data(bookings):
   # -- essential columns must be present; filter for rows with all of them
   df = bookings[bookings[['route_distance',
                           'tour_value', 'duration']].notnull().all(1)]
-  return df[df['route_distance'] < 10000][df['duration'] < pd.Timedelta(1, 'h')]
+
+  df = df[df['route_distance'] < 10000][df['duration'] < pd.Timedelta(1, 'h')]
+  df["duration"] = (df["duration"]).dt.seconds
+
+  df = df.query("state!=CANCELED")
+
+  return df
 
 def model_gradient_boosting(df):
   """Model lower, mid, and upper bounds for taxi-fares"""
@@ -66,6 +72,5 @@ def model_gradient_boosting(df):
   plot.save('model.png')
 
 df = tranform_data(bookings)
-df["duration"] = (df["duration"]).dt.seconds
 
 model_gradient_boosting(df)
