@@ -26,7 +26,7 @@ def tranform_data(bookings):
   df = df[df['route_distance'] < 10000][df['duration'] < pd.Timedelta(1, 'h')]
   df["duration"] = (df["duration"]).dt.seconds
 
-  df = df.query("state!=CANCELED")
+  df = df.query("state!='CANCELED'")
 
   return df
 
