@@ -1,0 +1,10 @@
+name: blackbox-cab
+channels:
+- conda-forge
+dependencies:
+- python=3.7
+- pip
+- pip:
+    - plotnine
+    - sklearn
+    - pandas
